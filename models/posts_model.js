@@ -6,7 +6,7 @@ const postSchema = new mongoose.Schema({
     required: true,
   },
   content: String,
-  owner: {
+  senderId: {
     type: String,
     required: true,
   },
