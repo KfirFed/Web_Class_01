@@ -1,0 +1,13 @@
+{
+  "name": "web_class_01",
+  "version": "1.0.0",
+  "description": "Assignment 01 for web class",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kfir&Ofri",
+  "license": "ISC"
+}
