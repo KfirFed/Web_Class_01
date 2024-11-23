@@ -1,0 +1,24 @@
+###
+
+POST http://localhost:3000/posts
+Content-Type: application/json
+
+{
+    "title": "Hello Kfir",
+    "owner": "Ofri",
+    "content": "Hey, nice working with you"
+}
+
+###
+
+###
+
+GET http://localhost:3000/posts
+
+###
+
+###
+
+GET http://localhost:3000/posts/6742373ddfdb9be9bf02aacf
+
+###
