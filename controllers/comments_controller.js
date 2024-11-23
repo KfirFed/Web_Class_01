@@ -1,4 +1,4 @@
-const commentsModel = require("../models/comments");
+const commentsModel = require("../models/comments_model");
 
 const getCommentsByPostId = async (req, res) => {
   const postId = req.params.id;
