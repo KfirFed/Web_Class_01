@@ -1,0 +1,19 @@
+###
+
+POST http://localhost:3000/comments
+Content-Type: application/json
+
+{
+    "postId": "1",
+    "owner": "Kfir",
+    "content": "This is a comment"
+}
+
+###
+
+GET http://localhost:3000/comments/post/1
+
+
+###
+
+GET http://localhost:3000/comments/674236c8cfe1e6b01f423434
