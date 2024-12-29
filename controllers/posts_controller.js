@@ -45,9 +45,22 @@ const getAllPostsBySenderId = async (req, res) => {
   }
 };
 
+const updatePostById = async (req, res) => {
+  const postId = req.params.id;
+  const postBody = req.body;
+
+  try {
+    await PostModel.findByIdAndUpdate(postId, postBody);
+    res.status(201);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
+
 module.exports = {
   getAllPosts,
   createPost,
   getPostById,
-  getAllPostsBySenderId
+  getAllPostsBySenderId,
+  updatePostById,
 };
