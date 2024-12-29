@@ -38,4 +38,32 @@ const createComment = async (req, res) => {
   }
 };
 
-module.exports = { getCommentsByPostId, getCommentById, createComment };
+const deleteCommentById = async (req, res) => {
+  const commentId = req.params.id;
+  try {
+    const comment = await commentsModel.findByIdAndDelete(commentId);
+    res.status(200).send(comment);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
+
+const updateCommentById = async (req, res) => {
+  const commentId = req.params.id;
+  const commentBody = req.body;
+
+  try {
+    await commentsModel.findByIdAndUpdate(commentId, commentBody);
+    res.status(200);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
+
+module.exports = {
+  getCommentsByPostId,
+  getCommentById,
+  createComment,
+  deleteCommentById,
+  updateCommentById,
+};

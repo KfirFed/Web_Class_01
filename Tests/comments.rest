@@ -16,4 +16,17 @@ GET http://localhost:3000/comments/post/1
 
 ###
 
-GET http://localhost:3000/comments/674236c8cfe1e6b01f423434
+GET http://localhost:3000/comments/67711700ddecf4fecb296703
+
+###
+
+DELETE http://localhost:3000/comments/674a2cb66c10bf2988371745
+
+###
+
+PUT http://localhost:3000/comments/67711700ddecf4fecb296703 
+Content-Type: application/json
+
+{
+    "content": "changed comment"
+}
