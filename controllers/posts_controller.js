@@ -51,7 +51,7 @@ const updatePostById = async (req, res) => {
 
   try {
     await PostModel.findByIdAndUpdate(postId, postBody);
-    res.status(201);
+    res.status(200);
   } catch (error) {
     res.status(400).send(error.message);
   }
