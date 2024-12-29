@@ -13,6 +13,9 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+const commentsRoute = require("./routes/comments_route");
+app.use("/comments", commentsRoute);
+
 const postsRoute = require("./routes/posts_route");
 app.use("/posts", postsRoute);
 
