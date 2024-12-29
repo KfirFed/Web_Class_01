@@ -34,8 +34,20 @@ const getPostById = async (req, res) => {
   }
 };
 
+const getAllPostsBySenderId = async (req, res) => {
+  const sender = req.query.sender;
+
+  try {
+    const posts = await PostModel.find({ senderId: sender });
+    res.send(posts);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
+
 module.exports = {
   getAllPosts,
   createPost,
   getPostById,
+  getAllPostsBySenderId
 };
