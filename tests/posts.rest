@@ -1,0 +1,35 @@
+###
+
+POST http://localhost:3000/posts
+Content-Type: application/json
+
+{
+    "title": "Hello Kfir",
+    "senderId": "12345",
+    "content": "Hey, nice working with you"
+}
+
+###
+
+GET http://localhost:3000/posts/all
+
+###
+
+GET http://localhost:3000/posts/6742373ddfdb9be9bf02aacf
+
+###
+
+GET http://localhost:3000/posts?sender=12345
+
+###
+
+PUT http://localhost:3000/posts/67710987ef0bb8fcea564144
+Content-Type: application/json
+
+{
+    "title": "Hello Ofri",
+    "senderId": "12345",
+    "content": "Hey, nice working with you"
+}
+
+###
