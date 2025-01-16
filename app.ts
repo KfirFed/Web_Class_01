@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 // import commentsRoute from "./routes/comments_route";
-// import postsRoute from "./routes/posts_route";
+import postsRoute from "./routes/posts_route";
 
 dotenv.config();
 const app: Express = express();
@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // app.use("/comments", commentsRoute);
-// app.use("/posts", postsRoute);
+app.use("/posts", postsRoute);
 
 app.listen(port, () => {
   console.log(`app listening at http://localhost:${port}`);

@@ -1,4 +1,4 @@
-const PostModel = require("../models/posts_model");
+import PostModel from "../models/posts_model";
 
 const getAllPosts = async (req, res) => {
   try {
@@ -57,7 +57,7 @@ const updatePostById = async (req, res) => {
   }
 };
 
-module.exports = {
+export default {
   getAllPosts,
   createPost,
   getPostById,
