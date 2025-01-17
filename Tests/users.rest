@@ -1,0 +1,31 @@
+###
+
+GET http://localhost:3000/users/all
+
+###
+
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "username": "Kfir",
+    "password": "123456",
+    "email": "Kfir@gmail.com"
+}
+
+
+###
+GET http://localhost:3000/users/678a35e0e6fb995a181d1e92
+
+###
+PUT http://localhost:3000/users/678a35e0e6fb995a181d1e92
+Content-Type: application/json
+
+{
+    "username": "Kfir",
+    "password": "123456",
+    "email": "Kfir@walla.com"
+}
+
+###
+DELETE http://localhost:3000/users/678a35e0e6fb995a181d1e92
