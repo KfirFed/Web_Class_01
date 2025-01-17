@@ -1,4 +1,4 @@
-const commentsModel = require("../models/comments_model");
+import commentsModel from "../models/comments_model";
 
 const getCommentsByPostId = async (req, res) => {
   const postId = req.params.id;
@@ -60,7 +60,7 @@ const updateCommentById = async (req, res) => {
   }
 };
 
-module.exports = {
+export default {
   getCommentsByPostId,
   getCommentById,
   createComment,

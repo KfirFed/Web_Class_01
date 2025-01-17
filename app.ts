@@ -2,7 +2,7 @@ import express, { Express } from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
-// import commentsRoute from "./routes/comments_route";
+import commentsRoute from "./routes/comments_route";
 import postsRoute from "./routes/posts_route";
 
 dotenv.config();
@@ -18,7 +18,7 @@ db.once("open", () => console.log("Connected to database"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.use("/comments", commentsRoute);
+app.use("/comments", commentsRoute);
 app.use("/posts", postsRoute);
 
 app.listen(port, () => {
