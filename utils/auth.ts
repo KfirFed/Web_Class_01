@@ -29,3 +29,5 @@ const generateToken = (userId: string): Tokens | null => {
     refreshToken: refreshToken,
   };
 };
+
+export default generateToken;

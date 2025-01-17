@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import userModel from "../models/users_model";
+import generateToken from "./../utils/auth";
 
 const register = async (req: Request, res: Response) => {
   try {
@@ -18,4 +19,43 @@ const register = async (req: Request, res: Response) => {
   }
 };
 
-export default { register };
+const login = async (req: Request, res: Response) => {
+  try {
+    const user = await userModel.findOne({ email: req.body.email });
+    if (!user) {
+      res.status(400).send("wrong username or password");
+      return;
+    }
+    const validPassword = await bcrypt.compare(
+      req.body.password,
+      user.password
+    );
+    if (!validPassword) {
+      res.status(400).send("wrong username or password");
+      return;
+    }
+    if (!process.env.TOKEN_SECRET) {
+      res.status(500).send("Server Error");
+      return;
+    }
+    const tokens = generateToken(user._id.toString());
+    if (!tokens) {
+      res.status(500).send("Server Error");
+      return;
+    }
+    if (!user.refreshToken) {
+      user.refreshToken = [];
+    }
+    user.refreshToken.push(tokens.refreshToken);
+    await user.save();
+    res.status(200).send({
+      accessToken: tokens.accessToken,
+      refreshToken: tokens.refreshToken,
+      _id: user._id,
+    });
+  } catch (err) {
+    res.status(400).send(err);
+  }
+};
+
+export default { register, login };
