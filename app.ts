@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import commentsRoute from "./routes/comments_route";
 import postsRoute from "./routes/posts_route";
+import usersRoute from "./routes/users_route";
 
 dotenv.config();
 const app: Express = express();
@@ -20,6 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/comments", commentsRoute);
 app.use("/posts", postsRoute);
+app.use("/users", usersRoute);
 
 app.listen(port, () => {
   console.log(`app listening at http://localhost:${port}`);
