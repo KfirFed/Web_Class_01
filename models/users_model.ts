@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Document } from "mongoose";
 
 export interface User {
   email: string;
@@ -7,6 +7,14 @@ export interface User {
   _id?: string;
   refreshToken?: string[];
 }
+
+export type UserType = Document<unknown, {}, User> &
+  User &
+  Required<{
+    _id: string;
+  }> & {
+    __v: number;
+  };
 
 const usersSchema = new mongoose.Schema<User>({
   username: {
