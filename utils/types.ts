@@ -3,4 +3,8 @@ type Tokens = {
   refreshToken: string;
 };
 
-export default Tokens;
+type Payload = {
+  _id: string;
+};
+
+export { Tokens, Payload };

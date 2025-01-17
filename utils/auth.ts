@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import Tokens from "./types";
+import { Tokens } from "./types";
 import usersModel, { UserType } from "../models/users_model";
 
 const generateToken = (userId: string): Tokens | null => {
