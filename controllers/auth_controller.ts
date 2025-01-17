@@ -59,7 +59,6 @@ const login = async (req: Request, res: Response) => {
 };
 
 const logout = async (req: Request, res: Response) => {
-  console.log("req.body", req.headers.authorization);
   try {
     const user = await verifyRefreshToken(req.headers.authorization);
     await user.save();
@@ -69,4 +68,31 @@ const logout = async (req: Request, res: Response) => {
   }
 };
 
-export default { register, login, logout };
+const refresh = async (req: Request, res: Response) => {
+  try {
+    const user = await verifyRefreshToken(req.headers.authorization);
+    if (!user) {
+      res.status(400).send("fail");
+      return;
+    }
+    const tokens = generateToken(user._id);
+    if (!tokens) {
+      res.status(500).send("Server Error");
+      return;
+    }
+    if (!user.refreshToken) {
+      user.refreshToken = [];
+    }
+    user.refreshToken.push(tokens.refreshToken);
+    await user.save();
+    res.status(200).send({
+      accessToken: tokens.accessToken,
+      refreshToken: tokens.refreshToken,
+      _id: user._id,
+    });
+  } catch (err) {
+    res.status(400).send("fail");
+  }
+};
+
+export default { register, login, logout, refresh };
