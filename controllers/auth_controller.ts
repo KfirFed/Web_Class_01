@@ -9,6 +9,7 @@ const register = async (req: Request, res: Response) => {
     const hashedPassword = await bcrypt.hash(password, salt);
     const user = await userModel.create({
       email: req.body.email,
+      username: req.body.username,
       password: hashedPassword,
     });
     res.status(200).send(user);
