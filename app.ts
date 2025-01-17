@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 import commentsRoute from "./routes/comments_route";
 import postsRoute from "./routes/posts_route";
 import swagger from "./server";
+import usersRoute from "./routes/users_route";
 
 dotenv.config();
 const app: Express = express();
@@ -23,6 +24,7 @@ swagger(app);
 
 app.use("/comments", commentsRoute);
 app.use("/posts", postsRoute);
+app.use("/users", usersRoute);
 
 app.listen(port, () => {
   console.log(`app listening at http://localhost:${port}`);
