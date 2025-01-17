@@ -14,7 +14,7 @@ const swagger = (app: Express) => {
         },
         servers: [{ url: `http://localhost:${process.env.PORT}` }],
       },
-      apis: ["./src/routes/*.ts"],
+      apis: ["./routes/*.ts"],
     };
     const specs = swaggerJsDoc(swaggerOptions);
     app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
