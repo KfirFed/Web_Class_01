@@ -1,6 +1,14 @@
 import mongoose from "mongoose";
 
-const usersSchema = new mongoose.Schema({
+export interface User {
+  email: string;
+  password: string;
+  username: string;
+  _id?: string;
+  refreshToken?: string[];
+}
+
+const usersSchema = new mongoose.Schema<User>({
   username: {
     type: String,
     required: true,
@@ -12,6 +20,10 @@ const usersSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
+  },
+  refreshToken: {
+    type: [String],
+    default: [],
   },
 });
 
