@@ -202,6 +202,8 @@ router.put("/:id", authMiddleware, postsController.updatePostById);
  *       summary: Update a post
  *       tags:
  *          - Posts
+ *       security:
+ *          - bearerAuth: []
  *       parameters:
  *          - name: id
  *            in: path

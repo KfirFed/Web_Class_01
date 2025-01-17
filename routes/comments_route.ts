@@ -130,8 +130,8 @@ router.post("/", authMiddleware, Comment.createComment);
  * @swagger
  * /comments:
  *   post:
- *     summary: Create a new post
- *     description: Create a new post
+ *     summary: Create a new comment
+ *     description: Create a new comment
  *     tags:
  *       - Comments
  *     security:
@@ -206,6 +206,8 @@ router.put("/:id", authMiddleware, Comment.updateCommentById);
  *       summary: Update a comment
  *       tags:
  *          - Comments
+ *       security:
+ *          - bearerAuth: []
  *       parameters:
  *          - name: id
  *            in: path
