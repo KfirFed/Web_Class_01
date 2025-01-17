@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import userModel from "../models/users_model";
-import { generateToken } from "./../utils/auth";
+import { generateToken, verifyRefreshToken } from "./../utils/auth";
 
 const register = async (req: Request, res: Response) => {
   try {
@@ -58,4 +58,15 @@ const login = async (req: Request, res: Response) => {
   }
 };
 
-export default { register, login };
+const logout = async (req: Request, res: Response) => {
+  console.log("req.body", req.headers.authorization);
+  try {
+    const user = await verifyRefreshToken(req.headers.authorization);
+    await user.save();
+    res.status(200).send("success");
+  } catch (err) {
+    res.status(400).send("fail");
+  }
+};
+
+export default { register, login, logout };
