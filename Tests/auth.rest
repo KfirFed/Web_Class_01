@@ -1,0 +1,29 @@
+###
+
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+    "password": "987654",
+    "username": "ofri",
+    "email": "ofri@gmail.com"
+}
+
+###
+
+POST http://localhost:3000/auth/login 
+Content-Type: application/json
+
+{
+"email": "ofri@gmail.com", "password": "987654"
+}
+
+###
+
+POST http://localhost:3000/auth/logout 
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzhhN2U1MTQ4ZTQ5ZDhhMjRhZGYzYjMiLCJyYW5kb20iOiIwLjU5OTY1NzExMDU0Mjc3NSIsImlhdCI6MTczNzE0NjQ4NywiZXhwIjoxNzM3NzUxMjg3fQ.diGhSkoOnaE9suKnW_eC4OF8XHLQCGurJctTjwjexb0
+
+###
+
+POST http://localhost:3000/auth/refresh 
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzhhN2U1MTQ4ZTQ5ZDhhMjRhZGYzYjMiLCJyYW5kb20iOiIwLjI5MjQxMTI0OTk4MzgzNDciLCJpYXQiOjE3MzcxNTAwMTgsImV4cCI6MTczNzc1NDgxOH0.cVkwyI6bZYejZtIvHnnloLfQs6tyzK8D2oa4t6lQQKs

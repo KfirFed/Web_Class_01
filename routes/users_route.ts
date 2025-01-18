@@ -1,5 +1,6 @@
 import express from "express";
 import usersController from "../controllers/users_controller";
+import { authMiddleware } from "../middlewares/auth";
 
 const router = express.Router();
 
@@ -159,7 +160,7 @@ router.post("/", usersController.createUser);
  *         description: Server error
  */
 
-router.put("/:id", usersController.updateUserById);
+router.put("/:id", authMiddleware, usersController.updateUserById);
 
 /**
  * @swagger
@@ -195,7 +196,7 @@ router.put("/:id", usersController.updateUserById);
  *              description: Not Found
  */
 
-router.delete("/:id", usersController.deleteUserById);
+router.delete("/:id", authMiddleware, usersController.deleteUserById);
 
 /**
  * @swagger

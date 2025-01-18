@@ -1,6 +1,22 @@
-import mongoose from "mongoose";
+import mongoose, { Document } from "mongoose";
 
-const usersSchema = new mongoose.Schema({
+export interface User {
+  email: string;
+  password: string;
+  username: string;
+  _id?: string;
+  refreshToken?: string[];
+}
+
+export type UserType = Document<unknown, {}, User> &
+  User &
+  Required<{
+    _id: string;
+  }> & {
+    __v: number;
+  };
+
+const usersSchema = new mongoose.Schema<User>({
   username: {
     type: String,
     required: true,
@@ -12,6 +28,10 @@ const usersSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
+  },
+  refreshToken: {
+    type: [String],
+    default: [],
   },
 });
 

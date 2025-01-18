@@ -1,5 +1,6 @@
 import express from "express";
 import Comment from "../controllers/comments_controller";
+import { authMiddleware } from "../middlewares/auth";
 
 const router = express.Router();
 
@@ -123,14 +124,14 @@ router.get("/post/:id", Comment.getCommentsByPostId);
  *         description: Server error
  */
 
-router.post("/", Comment.createComment);
+router.post("/", authMiddleware, Comment.createComment);
 
 /**
  * @swagger
  * /comments:
  *   post:
- *     summary: Create a new post
- *     description: Create a new post
+ *     summary: Create a new comment
+ *     description: Create a new comment
  *     tags:
  *       - Comments
  *     security:
@@ -168,7 +169,7 @@ router.post("/", Comment.createComment);
  *         description: Server error
  */
 
-router.delete("/:id", Comment.deleteCommentById);
+router.delete("/:id", authMiddleware, Comment.deleteCommentById);
 
 /**
  * @swagger
@@ -196,7 +197,7 @@ router.delete("/:id", Comment.deleteCommentById);
  *         description: Server error
  */
 
-router.put("/:id", Comment.updateCommentById);
+router.put("/:id", authMiddleware, Comment.updateCommentById);
 
 /**
  * @swagger
@@ -205,6 +206,8 @@ router.put("/:id", Comment.updateCommentById);
  *       summary: Update a comment
  *       tags:
  *          - Comments
+ *       security:
+ *          - bearerAuth: []
  *       parameters:
  *          - name: id
  *            in: path

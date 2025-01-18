@@ -6,6 +6,7 @@ import commentsRoute from "./routes/comments_route";
 import postsRoute from "./routes/posts_route";
 import swagger from "./server";
 import usersRoute from "./routes/users_route";
+import authRoute from "./routes/auth_route";
 
 dotenv.config();
 const app: Express = express();
@@ -25,6 +26,7 @@ swagger(app);
 app.use("/comments", commentsRoute);
 app.use("/posts", postsRoute);
 app.use("/users", usersRoute);
+app.use("/auth", authRoute);
 
 app.listen(port, () => {
   console.log(`app listening at http://localhost:${port}`);

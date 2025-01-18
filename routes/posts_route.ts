@@ -1,5 +1,6 @@
 import express from "express";
 import postsController from "../controllers/posts_controller";
+import { authMiddleware } from "../middlewares/auth";
 
 const router = express.Router();
 
@@ -85,7 +86,7 @@ router.get("/all", postsController.getAllPosts);
  *         description: Server error
  */
 
-router.post("/", postsController.createPost);
+router.post("/", authMiddleware, postsController.createPost);
 
 /**
  * @swagger
@@ -192,7 +193,7 @@ router.get("/", postsController.getAllPostsBySenderId);
  *         description: Server error
  */
 
-router.put("/:id", postsController.updatePostById);
+router.put("/:id", authMiddleware, postsController.updatePostById);
 
 /**
  * @swagger
@@ -201,6 +202,8 @@ router.put("/:id", postsController.updatePostById);
  *       summary: Update a post
  *       tags:
  *          - Posts
+ *       security:
+ *          - bearerAuth: []
  *       parameters:
  *          - name: id
  *            in: path
