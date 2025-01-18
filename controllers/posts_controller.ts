@@ -39,7 +39,11 @@ const getAllPostsBySenderId = async (req, res) => {
 
   try {
     const posts = await PostModel.find({ senderId: sender });
-    res.send(posts);
+    if (posts.length === 0) {
+      res.status(404).send("Post not found");
+    } else {
+      res.send(posts);
+    }
   } catch (error) {
     res.status(400).send(error.message);
   }
@@ -51,7 +55,7 @@ const updatePostById = async (req, res) => {
 
   try {
     await PostModel.findByIdAndUpdate(postId, postBody);
-    res.status(200);
+    res.status(200).send("Post updated");
   } catch (error) {
     res.status(400).send(error.message);
   }
