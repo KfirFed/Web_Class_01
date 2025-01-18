@@ -4,7 +4,9 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import commentsRoute from "./routes/comments_route";
 import postsRoute from "./routes/posts_route";
+import swagger from "./server";
 import usersRoute from "./routes/users_route";
+import authRoute from "./routes/auth_route";
 
 dotenv.config();
 const app: Express = express();
@@ -19,9 +21,12 @@ db.once("open", () => console.log("Connected to database"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+swagger(app);
+
 app.use("/comments", commentsRoute);
 app.use("/posts", postsRoute);
 app.use("/users", usersRoute);
+app.use("/auth", authRoute);
 
 export default app;
 

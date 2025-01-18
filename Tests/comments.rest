@@ -2,12 +2,14 @@
 
 POST http://localhost:3000/comments
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzhhN2U1MTQ4ZTQ5ZDhhMjRhZGYzYjMiLCJyYW5kb20iOiIwLjU5OTY1NzExMDU0Mjc3NSIsImlhdCI6MTczNzE0NjQ4NywiZXhwIjoxNzM3NzUxMjg3fQ.diGhSkoOnaE9suKnW_eC4OF8XHLQCGurJctTjwjexb0
 
 {
     "postId": "1",
     "owner": "Kfir",
-    "content": "This is a comment"
+    "content": "This is a comment 2 with auth"
 }
+
 
 ###
 
@@ -16,17 +18,21 @@ GET http://localhost:3000/comments/post/1
 
 ###
 
-GET http://localhost:3000/comments/67711700ddecf4fecb296703
+GET http://localhost:3000/comments/678ac54b1bfd2ee349522cd1
 
 ###
 
-DELETE http://localhost:3000/comments/674a2cb66c10bf2988371745
+DELETE http://localhost:3000/comments/678ac54b1bfd2ee349522cd1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzhhN2U1MTQ4ZTQ5ZDhhMjRhZGYzYjMiLCJyYW5kb20iOiIwLjU5OTY1NzExMDU0Mjc3NSIsImlhdCI6MTczNzE0NjQ4NywiZXhwIjoxNzM3NzUxMjg3fQ.diGhSkoOnaE9suKnW_eC4OF8XHLQCGurJctTjwjexb0
+
 
 ###
 
-PUT http://localhost:3000/comments/67711700ddecf4fecb296703 
+PUT http://localhost:3000/comments/678ac54b1bfd2ee349522cd1 
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzhhN2U1MTQ4ZTQ5ZDhhMjRhZGYzYjMiLCJyYW5kb20iOiIwLjU5OTY1NzExMDU0Mjc3NSIsImlhdCI6MTczNzE0NjQ4NywiZXhwIjoxNzM3NzUxMjg3fQ.diGhSkoOnaE9suKnW_eC4OF8XHLQCGurJctTjwjexb0
+
 
 {
-    "content": "changed comment"
+    "content": "changed comment with auth"
 }
