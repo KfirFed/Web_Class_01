@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 
 import testPostsData from "./tests_data/test_posts.json";
 import userExample from "./tests_data/user_example.json";
-import e, { Express } from "express";
+import { Express } from "express";
 import { Post, User } from "./types";
 
 dotenv.config();
