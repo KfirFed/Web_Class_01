@@ -4,8 +4,8 @@ import mongoose from "mongoose";
 import postsModel from "../models/posts_model";
 import dotenv from "dotenv";
 
-import testPostsData from "./test_posts.json";
-import userExample from "./user_example.json";
+import testPostsData from "./tests_data/test_posts.json";
+import userExample from "./tests_data/user_example.json";
 import { Express } from "express";
 import { Post, User } from "./types";
 
@@ -23,7 +23,7 @@ beforeAll(async () => {
 
   await request(app).post("/auth/register").send(testUser);
   const response = await request(app).post("/auth/login").send(testUser);
-  testUser.token = response.body.refreshToken;
+  testUser.token = response.body.accessToken;
   testUser._id = response.body._id;
   expect(testUser.token).toBeDefined();
 

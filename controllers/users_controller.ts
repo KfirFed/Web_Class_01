@@ -39,8 +39,12 @@ const updateUserById = async (req, res) => {
   const userBody = req.body;
 
   try {
-    await usersModel.findByIdAndUpdate(userId, userBody);
-    res.status(200);
+    const user = await usersModel.findByIdAndUpdate(userId, userBody);
+    if (!user) {
+      res.status(404).send("User not found");
+    } else {
+      res.status(200).send("User updated successfully");
+    }
   } catch (error) {
     res.status(400).send(error.message);
   }
@@ -50,8 +54,12 @@ const deleteUserById = async (req, res) => {
   const userId = req.params.id;
 
   try {
-    await usersModel.findByIdAndDelete(userId);
-    res.status(200);
+    const user = await usersModel.findByIdAndDelete(userId);
+    if (!user) {
+      res.status(404).send("User not found");
+    } else {
+      res.status(200).send("User deleted successfully");
+    }
   } catch (error) {
     res.status(400).send(error.message);
   }
