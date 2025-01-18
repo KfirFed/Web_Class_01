@@ -54,7 +54,7 @@ const updateCommentById = async (req, res) => {
 
   try {
     await commentsModel.findByIdAndUpdate(commentId, commentBody);
-    res.status(200);
+    res.status(200).send("Comment updated");;
   } catch (error) {
     res.status(400).send(error.message);
   }

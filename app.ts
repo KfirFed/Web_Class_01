@@ -23,6 +23,10 @@ app.use("/comments", commentsRoute);
 app.use("/posts", postsRoute);
 app.use("/users", usersRoute);
 
+export default app;
+
 app.listen(port, () => {
   console.log(`app listening at http://localhost:${port}`);
 });
+
+
