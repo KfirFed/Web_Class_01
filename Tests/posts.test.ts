@@ -6,9 +6,8 @@ import dotenv from "dotenv";
 
 import testPostsData from "./tests_data/test_posts.json";
 import userExample from "./tests_data/user_example.json";
-import { Express } from "express";
+import e, { Express } from "express";
 import { Post, User } from "./types";
-
 
 dotenv.config();
 let app: Express;
@@ -55,6 +54,30 @@ describe("Posts Test", () => {
       expect(response.body.senderId).toBe(post.senderId);
       post._id = response.body._id;
     }
+  });
+
+  test("Test fail to create new post - AUTH", async () => {
+    const response = await request(app).post("/posts").send({
+      title: "Test Post 1",
+      content: "Test Content 1",
+      senderId: "12345",
+    });
+    expect(response.statusCode).toBe(401);
+  });
+
+  test("Test fail to create new post - NO TOKEN VAR", async () => {
+    process.env.TOKEN_SECRET = "";
+    const response = await request(app)
+      .post("/posts")
+      .send({
+        title: "Test Post 1",
+        content: "Test Content 1",
+        senderId: "12345",
+      })
+      .set({ authorization: `JWT ${testUser.token}` });
+    process.env.TOKEN_SECRET =
+      "iQOy4vOcjFwsyFIJv6ylpU6C3kTJAZUcR1C57WaCSYVXcj1KY54kKSwjLAufTyDH";
+    expect([401, 500].includes(response.statusCode)).toBeTruthy();
   });
 
   test("Test get all post", async () => {

@@ -28,7 +28,6 @@ app.use("/users", usersRoute);
 app.use("/auth", authRoute);
 
 export const swagger = (app: Express) => {
-  if (process.env.NODE_ENV === "development") {
     const swaggerOptions = {
       definition: {
         openapi: "3.0.0",
@@ -43,7 +42,7 @@ export const swagger = (app: Express) => {
     };
     const specs = swaggerJsDoc(swaggerOptions);
     app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
-  }
+
 };
 
 export const initApp = () => {
