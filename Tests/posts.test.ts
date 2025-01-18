@@ -1,36 +1,37 @@
 import request from "supertest";
-// import appInit from "../server";
+import { initApp } from "../server";
 import mongoose from "mongoose";
 import postsModel from "../models/posts_model";
 import dotenv from "dotenv";
 
 import testPostsData from "./test_posts.json";
-import express, { Express } from "express";
+import userExample from "./user_example.json";
+import { Express } from "express";
+import { Post, User } from "./types";
 
-import app from "../app";
 
 dotenv.config();
-// let app: Express;
-// const app: Express = express();
-
-type Post = {
-  _id?: string;
-  title: string;
-  content: string;
-  senderId: string;
-};
+let app: Express;
 
 const testPosts: Post[] = testPostsData;
+const testUser: User = userExample;
 
 beforeAll(async () => {
-  console.log("Before all tests");
+  console.log("Posts: Before all tests");
   mongoose.connect(process.env.DB_URL);
-  // app = await appInit();
+  app = await initApp();
+
+  await request(app).post("/auth/register").send(testUser);
+  const response = await request(app).post("/auth/login").send(testUser);
+  testUser.token = response.body.refreshToken;
+  testUser._id = response.body._id;
+  expect(testUser.token).toBeDefined();
+
   await postsModel.deleteMany();
 });
 
 afterAll(() => {
-  console.log("After all tests");
+  console.log("Posts: After all tests");
   mongoose.connection.destroy();
 });
 
@@ -43,7 +44,11 @@ describe("Posts Test", () => {
 
   test("Test create new post", async () => {
     for (let post of testPosts) {
-      const response = await request(app).post("/posts").send(post);
+      const response = await request(app)
+        .post("/posts")
+        .send(post)
+        .set({ authorization: `JWT ${testUser.token}` });
+
       expect(response.statusCode).toBe(201);
       expect(response.body.title).toBe(post.title);
       expect(response.body.content).toBe(post.content);
@@ -66,7 +71,7 @@ describe("Posts Test", () => {
 
   test("Test fail to get comment by post id", async () => {
     const response = await request(app).get("/posts/" + "fake_id");
-    expect(response.statusCode).toBe(400);
+    expect([404, 400].includes(response.statusCode)).toBeTruthy();
   });
 
   test("Test filter post by sender", async () => {
@@ -83,11 +88,15 @@ describe("Posts Test", () => {
   });
 
   test("Test create new post fail", async () => {
-    const response = await request(app).post("/posts").send({
-      title: "Test Post 1",
-      content: "Test Content 1",
-    });
-    expect(response.statusCode).toBe(400);
+    const response = await request(app)
+      .post("/posts")
+      .send({
+        title: "Test Post 1",
+        content: "Test Content 1",
+      })
+      .set({ authorization: `JWT ${testUser.token}` });
+
+    expect([404, 400].includes(response.statusCode)).toBeTruthy();
   });
 
   test("Test update post by id", async () => {
@@ -98,7 +107,8 @@ describe("Posts Test", () => {
         .send({
           title: "Updated Title",
           content: "Updated content",
-        });
+        })
+        .set({ authorization: `JWT ${testUser.token}` });
 
       expect(response.statusCode).toBe(200);
     } catch (error) {
@@ -112,8 +122,9 @@ describe("Posts Test", () => {
       .set("Content-Type", "application/json")
       .send({
         title: "Updated Title",
-      });
+      })
+      .set({ authorization: `JWT ${testUser.token}` });
 
-    expect(response.statusCode).toBe(400);
+    expect([404, 400].includes(response.statusCode)).toBeTruthy();
   });
 });

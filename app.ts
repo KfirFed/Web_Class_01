@@ -1,37 +1,14 @@
-import express, { Express } from "express";
 import dotenv from "dotenv";
-import mongoose from "mongoose";
-import bodyParser from "body-parser";
-import commentsRoute from "./routes/comments_route";
-import postsRoute from "./routes/posts_route";
-import swagger from "./server";
-import usersRoute from "./routes/users_route";
-import authRoute from "./routes/auth_route";
+import { initApp, swagger } from "./server";
 
 dotenv.config();
-const app: Express = express();
 const port = process.env.PORT;
 
-mongoose.connect(process.env.DB_URL as string);
-const db = mongoose.connection;
+const app = initApp();
 
-db.on("error", (error) => console.error(error));
-db.once("open", () => console.log("Connected to database"));
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-swagger(app);
-
-app.use("/comments", commentsRoute);
-app.use("/posts", postsRoute);
-app.use("/users", usersRoute);
-app.use("/auth", authRoute);
-
-export default app;
-
-app.listen(port, () => {
-  console.log(`app listening at http://localhost:${port}`);
+initApp().then((app) => {
+  app.listen(port, () => {
+    console.log(`app listening at http://localhost:${port}`);
+  });
+  swagger(app);
 });
-
-
